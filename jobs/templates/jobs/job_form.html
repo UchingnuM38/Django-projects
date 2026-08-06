@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}{% if form.instance.pk %}Edit Job{% else %}Post Job{% endif %} | JobPortal{% endblock %}
+{% block content %}
+    <section class="page-card">
+        <h1>{% if form.instance.pk %}Edit Job{% else %}Post a Job{% endif %}</h1>
+        <form method="post" class="form-card">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="button primary" type="submit">Save Job</button>
+        </form>
+    </section>
+{% endblock %}

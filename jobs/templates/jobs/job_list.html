@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Jobs | JobPortal{% endblock %}
+{% block content %}
+    <section class="page-card">
+        <div class="page-header">
+            <div>
+                <h1>Available Jobs</h1>
+                <p>Explore current openings and apply with one click.</p>
+            </div>
+            <a class="button primary" href="{% url 'job-create' %}">Post a Job</a>
+        </div>
+
+        <div class="grid-list">
+            {% if all_jobs %}
+                {% for job in all_jobs %}
+                    <article class="job-card">
+                        <h2><a href="{% url 'job-detail' job.pk %}">{{ job.title }}</a></h2>
+                        <p class="meta">Posted by {{ job.posted_by.username }} · {{ job.date_posted|date:'M d, Y' }}</p>
+                        <p>{{ job.description|truncatechars:160 }}</p>
+                        <div class="card-bottom">
+                            <span class="badge">${{ job.salary }}</span>
+                            <a class="button secondary" href="{% url 'job-detail' job.pk %}">View details</a>
+                        </div>
+                    </article>
+                {% endfor %}
+            {% else %}
+                <p>No jobs are available right now. Check back soon or post a new opening.</p>
+            {% endif %}
+        </div>
+
+        {% if is_paginated %}
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="button secondary">Previous</a>
+                {% endif %}
+                <span>Page {{ page_obj.number }} of {{ paginator.num_pages }}</span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="button secondary">Next</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

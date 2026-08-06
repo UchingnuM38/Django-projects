@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up | JobPortal{% endblock %}
+{% block content %}
+    <section class="page-card">
+        <h1>Create your account</h1>
+        <p>Register as an employer or job seeker to start using the portal.</p>
+        <form method="post" class="form-card">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="button primary" type="submit">Sign Up</button>
+        </form>
+        <p class="form-footer">Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
+    </section>
+{% endblock %}

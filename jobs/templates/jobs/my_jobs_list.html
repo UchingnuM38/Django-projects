@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}My Jobs | JobPortal{% endblock %}
+{% block content %}
+    <section class="page-card">
+        <div class="page-header">
+            <div>
+                <h1>My Posted Jobs</h1>
+                <p>Review and manage the jobs you've posted.</p>
+            </div>
+            <a class="button primary" href="{% url 'job-create' %}">New Job</a>
+        </div>
+
+        {% if my_jobs %}
+            <div class="grid-list">
+                {% for job in my_jobs %}
+                    <article class="job-card">
+                        <h2><a href="{% url 'job-detail' job.pk %}">{{ job.title }}</a></h2>
+                        <p class="meta">{{ job.date_posted|date:'M d, Y' }}</p>
+                        <p>{{ job.description|truncatechars:140 }}</p>
+                        <div class="card-bottom">
+                            <a class="button secondary" href="{% url 'job-update' job.pk %}">Edit</a>
+                            <a class="button danger" href="{% url 'job-delete' job.pk %}">Delete</a>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>You haven't posted any jobs yet.</p>
+        {% endif %}
+    </section>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Home | JobPortal{% endblock %}
+{% block content %}
+    <section class="hero">
+        <div class="hero-copy">
+            <h1>Find your next opportunity.</h1>
+            <p>Browse jobs, post positions, and connect with the right talent.</p>
+            <div class="hero-actions">
+                <a class="button primary" href="{% url 'job-list' %}">Browse Jobs</a>
+                <a class="button secondary" href="{% url 'signup' %}">Create Account</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="feature-card">
+                <h2>Post jobs quickly.</h2>
+                <p>Create listings in seconds and manage applicants from your dashboard.</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
