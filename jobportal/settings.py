@@ -24,9 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(%b9(-jjke15l9g5by4_jg_j5(ljhpn4a&94^9!e+3@2-b*o-u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ["jobportal-01sb.onrender.com", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["*"]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 # Application definition
