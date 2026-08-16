@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}{{ job.title }} | JobPortal{% endblock %}
+{% block content %}
+    <section class="page-card">
+        <div class="page-header">
+            <div>
+                <h1>{{ job.title }}</h1>
+                <p class="meta">Posted by {{ job.posted_by.username }} · {{ job.date_posted|date:'M d, Y' }}</p>
+            </div>
+            <div class="detail-actions">
+                <span class="badge">${{ job.salary }}</span>
+                {% if user == job.posted_by %}
+                    <a class="button secondary" href="{% url 'job-update' job.pk %}">Edit</a>
+                    <a class="button danger" href="{% url 'job-delete' job.pk %}">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="job-body">
+            <h2>About this role</h2>
+            <p>{{ job.description }}</p>
+        </div>
+
+        {% if user.is_authenticated %}
+            {% if applied %}
+                <div class="alert alert-success">You have already applied to this role.</div>
+            {% else %}
+                <form method="post" action="{% url 'apply-job' job.pk %}">
+                    {% csrf_token %}
+                    <button class="button primary" type="submit">Apply Now</button>
+                </form>
+            {% endif %}
+        {% else %}
+            <p class="notice">Please <a href="{% url 'login' %}">log in</a> to apply for this job.</p>
+        {% endif %}
+    </section>
+{% endblock %}
